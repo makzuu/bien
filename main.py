@@ -43,14 +43,29 @@ if __name__ == "__main__":
         token = get_token()
         save_token(token)
 
-    data, status_code = me(token)
-    if data is not None:
-        print(f"Welcome! {data['name']}")
+    #data, status_code = me(token)
+    #if data is not None:
+    #    print(f"Welcome! {data['name']}")
 
-    data, status_code = get_anime_list(token)
+    #data, status_code = get_anime_list(token)
+    #if status_code == 200:
+    #    print("Anime List:")
+    #    for element in data["data"]:
+    #        node = element["node"]
+    #        status = element["list_status"]["status"]
+    #        print(f"\t({node['id']}) |{status}| {node['title']}")
+
+    data, status_code = search(token, "no game no life", 3)
     if status_code == 200:
-        print("Anime List:")
+        print("Results for search q='no game no life'")
         for element in data["data"]:
             node = element["node"]
-            status = element["list_status"]["status"]
-            print(f"\t({node['id']}) |{status}| {node['title']}")
+            print(f"ID: {node['id']}")
+            print(f"Name: {node['title']}")
+            print("Alt Names:")
+            print(f"\t- {node['alternative_titles']['en']}")
+            print(f"\t- {node['alternative_titles']['ja']}")
+            print(f"Airing status: {node['status']}")
+            print("---\n")
+    else:
+        print(status_code, data)
