@@ -26,10 +26,11 @@ def search(token, anime_name, limit=100, offset=0):
 def update_my_anime_list():
     pass
 
-def add(token, anime_id):
+def add(token, anime_id, status="watching"):
     url = base_url + f"anime/{anime_id}/my_list_status"
     headers = { "Authorization": f"Bearer {token['access_token']}"}
-    r = requests.put(url, headers=headers)
+    data = { "status": status }
+    r = requests.put(url, headers=headers, data=data)
     return r.json(), r.status_code
 
 def modify():
