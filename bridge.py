@@ -23,19 +23,15 @@ def search(token, anime_name, limit=100, offset=0):
     r = requests.get(base_url + "anime", headers=headers, params=params)
     return r.json(), r.status_code
 
-def update_my_anime_list():
-    pass
-
-def add(token, anime_id, status="watching"):
-    url = base_url + f"anime/{anime_id}/my_list_status"
-    headers = { "Authorization": f"Bearer {token['access_token']}"}
-    data = { "status": status }
-    r = requests.put(url, headers=headers, data=data)
-    return r.json(), r.status_code
-
-def modify(token, anime_id, status=None, score=None, num_watched_episodes=None):
+def update_my_anime_list(token, anime_id, status=None, score=None, num_watched_episodes=None):
     url = base_url + f"anime/{anime_id}/my_list_status"
     headers = { "Authorization": f"Bearer {token['access_token']}"}
     data = { "status": status, "score": score, "num_watched_episodes": num_watched_episodes }
     r = requests.put(url, headers=headers, data=data)
     return r.json(), r.status_code
+
+def add(token, anime_id, status="watching"):
+    return update_my_anime_list(token, anime_id, status)
+    
+def modify(token, anime_id, status=None, score=None, num_watched_episodes=None):
+    return update_my_anime_list(token, anime_id, status, score, num_watched_episodes)
