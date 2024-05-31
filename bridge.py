@@ -33,5 +33,9 @@ def add(token, anime_id, status="watching"):
     r = requests.put(url, headers=headers, data=data)
     return r.json(), r.status_code
 
-def modify():
-    pass
+def modify(token, anime_id, status=None, score=None, num_watched_episodes=None):
+    url = base_url + f"anime/{anime_id}/my_list_status"
+    headers = { "Authorization": f"Bearer {token['access_token']}"}
+    data = { "status": status, "score": score, "num_watched_episodes": num_watched_episodes }
+    r = requests.put(url, headers=headers, data=data)
+    return r.json(), r.status_code
