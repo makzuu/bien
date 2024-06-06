@@ -24,7 +24,7 @@ class ArgP:
                     else:
                         value = argv[arg["pos"]]
                     args[arg["name"]] = value
-                elif arg["not_required_in"] is not None and args[0]["command"] in arg["not_required_in"]:
+                elif arg["not_required_in"] is not None and args["command"] in arg["not_required_in"]:
                     continue
                 else:
                     raise Exception(f"Error: Required arg \"{arg['name']}\" not found")
