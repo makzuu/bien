@@ -4,6 +4,8 @@ from dotenv import client_id
 import secrets
 import os
 import time
+import webbrowser
+from server import get_code
 
 def get_new_code_verifier():
     token = secrets.token_urlsafe(100)
@@ -12,10 +14,10 @@ def get_new_code_verifier():
 def get_auth_code(code_challenge):
     base_url = "https://myanimelist.net/v1/oauth2/authorize"
     response_type = "code"
-    url = f"{base_url}?response_type={response_type}&client_id={client_id}&code_challenge={code_challenge}"
+    auth_url = f"{base_url}?response_type={response_type}&client_id={client_id}&code_challenge={code_challenge}"
 
-    print(f"click here to get your auth code: {url}")
-    return input("insert your auth code here: ")
+    webbrowser.open(auth_url)
+    return get_code()
 
 def request_user_access_token(auth_code, code_verifier):
     base_url = "https://myanimelist.net/v1/oauth2/token"
