@@ -19,7 +19,7 @@ def get_my_anime_list(token, limit=100, offset=0, status=""):
 def search(token, anime_name, limit=100, offset=0):
     headers = { "Authorization": f"Bearer {token['access_token']}"}
     params = { "q": anime_name, "limit": limit, "offset": offset,
-              "fields": "my_list_status,status,alternative_titles" }
+              "fields": "my_list_status,status,alternative_titles,num_episodes" }
     r = requests.get(base_url + "anime", headers=headers, params=params)
     return r.json(), r.status_code
 
