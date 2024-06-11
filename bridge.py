@@ -12,7 +12,7 @@ def me(token):
 def get_my_anime_list(token, limit=100, offset=0, status=""):
     headers = { "Authorization": f"Bearer {token['access_token']}"}
     params = { "limit": limit, "offset": offset, "status": status,
-              "fields": "list_status" }
+              "fields": "list_status,alternative_titles,score" }
     r = requests.get(base_url + "users/@me/animelist", headers=headers, params=params)
     return r.json(), r.status_code
 
@@ -30,7 +30,7 @@ def update_my_anime_list(token, anime_id, status=None, score=None, num_watched_e
     r = requests.put(url, headers=headers, data=data)
     return r.json(), r.status_code
 
-def add(token, anime_id, status="watching"):
+def add(token, anime_id, status="plan_to_watch"):
     return update_my_anime_list(token, anime_id, status)
     
 def modify(token, anime_id, status=None, score=None, num_watched_episodes=None):
